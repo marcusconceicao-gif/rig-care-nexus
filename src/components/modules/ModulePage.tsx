@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Search, Plus, Upload, Mail, AlertCircle, Trash2 } from "lucide-react";
+import { Search, Plus, Upload, Mail, AlertCircle, Trash2, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,18 +14,22 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import type { ModuleConfig, ModuleRecord } from "@/types/modules";
 
 interface ModulePageProps {
   config: ModuleConfig;
 }
 
-const generateId = () => Math.random().toString(36).substr(2, 9);
-
 export default function ModulePage({ config }: ModulePageProps) {
   const [search, setSearch] = useState("");
   const [records, setRecords] = useState<ModuleRecord[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const { toast } = useToast();
   const [form, setForm] = useState({
     placa: "",
     nome: "",
@@ -35,28 +39,89 @@ export default function ModulePage({ config }: ModulePageProps) {
     emailConfirmed: false,
   });
 
+  // Fetch records on mount
+  useEffect(() => {
+    fetchRecords();
+  }, [config.module]);
+
+  const fetchRecords = async () => {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from("module_records")
+      .select("*")
+      .eq("module", config.module)
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      toast({ title: "Erro ao carregar registros", description: error.message, variant: "destructive" });
+    } else {
+      setRecords(data || []);
+    }
+    setLoading(false);
+  };
+
   const filtered = records.filter((r) => {
     const val = config.searchField === "placa" ? r.placa : r.nome;
     return (val || "").toLowerCase().includes(search.toLowerCase());
   });
 
-  const handleAdd = () => {
-    const newRecord: ModuleRecord = {
-      id: generateId(),
-      placa: form.placa || undefined,
-      nome: form.nome || undefined,
+  const handleAdd = async () => {
+    setSaving(true);
+
+    let arquivo_url: string | undefined;
+
+    // Upload file if selected
+    if (selectedFile && config.hasFileUpload) {
+      const fileExt = selectedFile.name.split(".").pop();
+      const filePath = `${config.module}/${Date.now()}.${fileExt}`;
+      const { error: uploadError } = await supabase.storage
+        .from("module-files")
+        .upload(filePath, selectedFile);
+
+      if (uploadError) {
+        toast({ title: "Erro no upload", description: uploadError.message, variant: "destructive" });
+        setSaving(false);
+        return;
+      }
+
+      const { data: urlData } = supabase.storage.from("module-files").getPublicUrl(filePath);
+      arquivo_url = urlData.publicUrl;
+    }
+
+    const newRecord = {
+      module: config.module,
+      placa: form.placa || null,
+      nome: form.nome || null,
       data: new Date().toLocaleDateString("pt-BR"),
       responsavel: form.responsavel,
       observacoes: form.observacoes,
       status: form.status,
+      arquivo_url: arquivo_url || null,
+      email_confirmado: form.emailConfirmed,
     };
-    setRecords((prev) => [newRecord, ...prev]);
-    setForm({ placa: "", nome: "", responsavel: "", observacoes: "", status: "Ativo", emailConfirmed: false });
-    setDialogOpen(false);
+
+    const { error } = await supabase.from("module_records").insert([newRecord]);
+
+    if (error) {
+      toast({ title: "Erro ao salvar", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "Registro salvo com sucesso!" });
+      setForm({ placa: "", nome: "", responsavel: "", observacoes: "", status: "Ativo", emailConfirmed: false });
+      setSelectedFile(null);
+      setDialogOpen(false);
+      fetchRecords();
+    }
+    setSaving(false);
   };
 
-  const handleDelete = (id: string) => {
-    setRecords((prev) => prev.filter((r) => r.id !== id));
+  const handleDelete = async (id: string) => {
+    const { error } = await supabase.from("module_records").delete().eq("id", id);
+    if (error) {
+      toast({ title: "Erro ao excluir", description: error.message, variant: "destructive" });
+    } else {
+      setRecords((prev) => prev.filter((r) => r.id !== id));
+      toast({ title: "Registro excluído" });
+    }
   };
 
   return (
@@ -126,10 +191,17 @@ export default function ModulePage({ config }: ModulePageProps) {
               {config.hasFileUpload && (
                 <div className="space-y-2">
                   <Label>Anexar Documento</Label>
-                  <div className="border-2 border-dashed border-border rounded-lg p-4 text-center cursor-pointer hover:border-accent transition-colors">
+                  <label className="border-2 border-dashed border-border rounded-lg p-4 text-center cursor-pointer hover:border-accent transition-colors block">
                     <Upload className="w-6 h-6 mx-auto text-muted-foreground mb-2" />
-                    <p className="text-sm text-muted-foreground">Clique para anexar arquivo</p>
-                  </div>
+                    <p className="text-sm text-muted-foreground">
+                      {selectedFile ? selectedFile.name : "Clique para anexar arquivo"}
+                    </p>
+                    <input
+                      type="file"
+                      className="hidden"
+                      onChange={(e) => setSelectedFile(e.target.files?.[0] || null)}
+                    />
+                  </label>
                 </div>
               )}
               {config.hasEmailConfirm && (
@@ -147,7 +219,8 @@ export default function ModulePage({ config }: ModulePageProps) {
                   </Label>
                 </div>
               )}
-              <Button onClick={handleAdd} className="w-full">
+              <Button onClick={handleAdd} className="w-full" disabled={saving}>
+                {saving && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
                 Salvar Registro
               </Button>
             </div>
@@ -196,7 +269,14 @@ export default function ModulePage({ config }: ModulePageProps) {
               </tr>
             </thead>
             <tbody>
-              {filtered.length === 0 ? (
+              {loading ? (
+                <tr>
+                  <td colSpan={config.columns.length + 1} className="text-center py-12 text-muted-foreground">
+                    <Loader2 className="w-5 h-5 animate-spin mx-auto mb-2" />
+                    Carregando...
+                  </td>
+                </tr>
+              ) : filtered.length === 0 ? (
                 <tr>
                   <td colSpan={config.columns.length + 1} className="text-center py-12 text-muted-foreground">
                     {search ? "Nenhum registro encontrado" : "Nenhum registro cadastrado"}
@@ -223,6 +303,15 @@ export default function ModulePage({ config }: ModulePageProps) {
                           >
                             {(record as any)[col.key] || "-"}
                           </Badge>
+                        ) : col.key === "arquivo_url" && (record as any)[col.key] ? (
+                          <a
+                            href={(record as any)[col.key]}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-primary underline"
+                          >
+                            Ver arquivo
+                          </a>
                         ) : (
                           (record as any)[col.key] || "-"
                         )}
