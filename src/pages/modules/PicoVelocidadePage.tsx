@@ -4,6 +4,7 @@ export default function PicoVelocidadePage() {
   return (
     <ModulePage
       config={{
+        module: "pico-velocidade",
         title: "Pico de Velocidade",
         searchField: "placa",
         searchPlaceholder: "Buscar por placa...",

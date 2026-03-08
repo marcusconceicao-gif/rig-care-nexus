@@ -4,6 +4,7 @@ export default function MotoristasPage() {
   return (
     <ModulePage
       config={{
+        module: "motoristas",
         title: "Motoristas",
         searchField: "nome",
         searchPlaceholder: "Buscar por nome...",

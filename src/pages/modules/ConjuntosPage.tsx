@@ -4,6 +4,7 @@ export default function ConjuntosPage() {
   return (
     <ModulePage
       config={{
+        module: "conjuntos",
         title: "Conjuntos",
         searchField: "placa",
         searchPlaceholder: "Buscar por placa...",

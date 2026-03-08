@@ -4,6 +4,7 @@ export default function MotoristasBloqueadosPage() {
   return (
     <ModulePage
       config={{
+        module: "motoristas-bloqueados",
         title: "Motoristas Bloqueados",
         searchField: "nome",
         searchPlaceholder: "Buscar por nome...",

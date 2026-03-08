@@ -4,6 +4,7 @@ export default function ManutencaoCarretasPage() {
   return (
     <ModulePage
       config={{
+        module: "manutencao-carretas",
         title: "Manutenção das Carretas",
         searchField: "placa",
         searchPlaceholder: "Buscar por placa...",

@@ -4,6 +4,7 @@ export default function LavagemCarretasPage() {
   return (
     <ModulePage
       config={{
+        module: "lavagem-carretas",
         title: "Lavagem das Carretas",
         searchField: "placa",
         searchPlaceholder: "Buscar por placa...",

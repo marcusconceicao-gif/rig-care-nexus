@@ -4,6 +4,7 @@ export default function FichasRetornosPage() {
   return (
     <ModulePage
       config={{
+        module: "fichas-retornos",
         title: "Fichas - Retornos",
         searchField: "placa",
         searchPlaceholder: "Buscar por placa...",

@@ -4,6 +4,7 @@ export default function KmMensalPage() {
   return (
     <ModulePage
       config={{
+        module: "km-mensal",
         title: "KM Mensal",
         searchField: "placa",
         searchPlaceholder: "Buscar por placa...",

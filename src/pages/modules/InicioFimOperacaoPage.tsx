@@ -4,6 +4,7 @@ export default function InicioFimOperacaoPage() {
   return (
     <ModulePage
       config={{
+        module: "inicio-fim-operacao",
         title: "Início e Fim de Operação",
         searchField: "placa",
         searchPlaceholder: "Buscar por placa...",

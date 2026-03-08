@@ -4,6 +4,7 @@ export default function CarretasSegurosPage() {
   return (
     <ModulePage
       config={{
+        module: "carretas-seguros",
         title: "Carretas - Seguros",
         searchField: "placa",
         searchPlaceholder: "Buscar por placa...",
