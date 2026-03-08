@@ -4,6 +4,7 @@ export default function AutotracInstalacaoPage() {
   return (
     <ModulePage
       config={{
+        module: "autotrac-instalacao",
         title: "Autotrac - Instalação",
         searchField: "placa",
         searchPlaceholder: "Buscar por placa...",

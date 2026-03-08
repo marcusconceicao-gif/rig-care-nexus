@@ -4,6 +4,7 @@ export default function TacografoPage() {
   return (
     <ModulePage
       config={{
+        module: "tacografo",
         title: "Tacógrafo - Vencimento",
         searchField: "placa",
         searchPlaceholder: "Buscar por placa...",

@@ -4,6 +4,7 @@ export default function AutotracManutencaoPage() {
   return (
     <ModulePage
       config={{
+        module: "autotrac-manutencao",
         title: "Autotrac - Manutenção",
         searchField: "placa",
         searchPlaceholder: "Buscar por placa...",

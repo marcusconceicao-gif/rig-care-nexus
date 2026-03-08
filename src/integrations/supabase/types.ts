@@ -14,7 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      module_records: {
+        Row: {
+          arquivo_url: string | null
+          created_at: string
+          data: string
+          email_confirmado: boolean | null
+          id: string
+          module: string
+          nome: string | null
+          observacoes: string | null
+          placa: string | null
+          responsavel: string
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          arquivo_url?: string | null
+          created_at?: string
+          data: string
+          email_confirmado?: boolean | null
+          id?: string
+          module: string
+          nome?: string | null
+          observacoes?: string | null
+          placa?: string | null
+          responsavel: string
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          arquivo_url?: string | null
+          created_at?: string
+          data?: string
+          email_confirmado?: boolean | null
+          id?: string
+          module?: string
+          nome?: string | null
+          observacoes?: string | null
+          placa?: string | null
+          responsavel?: string
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

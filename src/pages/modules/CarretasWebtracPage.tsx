@@ -4,6 +4,7 @@ export default function CarretasWebtracPage() {
   return (
     <ModulePage
       config={{
+        module: "carretas-webtrac",
         title: "Carretas - Webtrac",
         searchField: "placa",
         searchPlaceholder: "Buscar por placa...",

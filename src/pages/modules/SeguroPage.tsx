@@ -4,6 +4,7 @@ export default function SeguroPage() {
   return (
     <ModulePage
       config={{
+        module: "seguro",
         title: "Seguro - Vencimento",
         searchField: "placa",
         searchPlaceholder: "Buscar por placa...",

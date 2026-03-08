@@ -4,6 +4,7 @@ export default function AlteracoesPage() {
   return (
     <ModulePage
       config={{
+        module: "alteracoes",
         title: "Alterações",
         searchField: "placa",
         searchPlaceholder: "Buscar por placa...",

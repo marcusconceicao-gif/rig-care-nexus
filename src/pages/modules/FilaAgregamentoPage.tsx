@@ -4,6 +4,7 @@ export default function FilaAgregamentoPage() {
   return (
     <ModulePage
       config={{
+        module: "fila-agregamento",
         title: "Fila para Agregamento",
         searchField: "nome",
         searchPlaceholder: "Buscar por nome...",

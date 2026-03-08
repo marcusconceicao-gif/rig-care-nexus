@@ -4,6 +4,7 @@ export default function AdvertenciasPage() {
   return (
     <ModulePage
       config={{
+        module: "advertencias",
         title: "Advertências",
         searchField: "nome",
         searchPlaceholder: "Buscar por nome...",

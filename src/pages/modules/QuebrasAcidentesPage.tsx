@@ -4,6 +4,7 @@ export default function QuebrasAcidentesPage() {
   return (
     <ModulePage
       config={{
+        module: "quebras-acidentes",
         title: "Quebras e Acidentes",
         searchField: "placa",
         searchPlaceholder: "Buscar por placa...",
