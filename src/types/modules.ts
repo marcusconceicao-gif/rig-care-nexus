@@ -12,6 +12,7 @@ export interface ModuleRecord {
   tipo_rastreador?: string;
   numero_occ?: string;
   empresa_responsavel?: string;
+  item_trocado?: string;
   created_at?: string;
   updated_at?: string;
 }

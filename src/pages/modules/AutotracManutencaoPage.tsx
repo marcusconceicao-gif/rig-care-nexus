@@ -10,10 +10,32 @@ export default function AutotracManutencaoPage() {
         searchPlaceholder: "Buscar por placa...",
         columns: [
           { key: "placa", label: "Placa" },
+          { key: "item_trocado", label: "Item Trocado" },
+          { key: "empresa_responsavel", label: "Empresa Responsável" },
+          { key: "data", label: "Data Execução" },
           { key: "responsavel", label: "Responsável" },
-          { key: "data", label: "Data" },
           { key: "status", label: "Status" },
           { key: "observacoes", label: "Observações" },
+        ],
+        extraFields: [
+          {
+            key: "item_trocado",
+            label: "O que foi trocado",
+            type: "text",
+            placeholder: "Descreva o item trocado",
+          },
+          {
+            key: "empresa_responsavel",
+            label: "Empresa Responsável",
+            type: "text",
+            placeholder: "Nome da empresa responsável",
+          },
+          {
+            key: "data_instalacao",
+            label: "Data da Execução",
+            type: "date",
+            placeholder: "Selecione a data da execução",
+          },
         ],
       }}
     />

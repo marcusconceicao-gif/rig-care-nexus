@@ -22,6 +22,7 @@ export type Database = {
           email_confirmado: boolean | null
           empresa_responsavel: string | null
           id: string
+          item_trocado: string | null
           module: string
           nome: string | null
           numero_occ: string | null
@@ -39,6 +40,7 @@ export type Database = {
           email_confirmado?: boolean | null
           empresa_responsavel?: string | null
           id?: string
+          item_trocado?: string | null
           module: string
           nome?: string | null
           numero_occ?: string | null
@@ -56,6 +58,7 @@ export type Database = {
           email_confirmado?: boolean | null
           empresa_responsavel?: string | null
           id?: string
+          item_trocado?: string | null
           module?: string
           nome?: string | null
           numero_occ?: string | null
