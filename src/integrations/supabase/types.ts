@@ -23,6 +23,8 @@ export type Database = {
           empresa_responsavel: string | null
           id: string
           item_trocado: string | null
+          km_final: string | null
+          km_inicial: string | null
           module: string
           nome: string | null
           numero_occ: string | null
@@ -41,6 +43,8 @@ export type Database = {
           empresa_responsavel?: string | null
           id?: string
           item_trocado?: string | null
+          km_final?: string | null
+          km_inicial?: string | null
           module: string
           nome?: string | null
           numero_occ?: string | null
@@ -59,6 +63,8 @@ export type Database = {
           empresa_responsavel?: string | null
           id?: string
           item_trocado?: string | null
+          km_final?: string | null
+          km_inicial?: string | null
           module?: string
           nome?: string | null
           numero_occ?: string | null
