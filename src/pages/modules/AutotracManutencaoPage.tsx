@@ -20,6 +20,12 @@ export default function AutotracManutencaoPage() {
         ],
         extraFields: [
           {
+            key: "tipo_rastreador",
+            label: "Tipo de Rastreador",
+            type: "select",
+            options: ["ONIXSAT", "AUTOTRAC"],
+          },
+          {
             key: "item_trocado",
             label: "O que foi trocado",
             type: "text",
