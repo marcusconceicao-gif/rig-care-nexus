@@ -15,6 +15,7 @@ export interface ModuleRecord {
   item_trocado?: string;
   km_inicial?: string;
   km_final?: string;
+  mes_ano?: string;
   created_at?: string;
   updated_at?: string;
 }
@@ -22,7 +23,7 @@ export interface ModuleRecord {
 export interface ExtraField {
   key: string;
   label: string;
-  type: 'text' | 'select' | 'date';
+  type: 'text' | 'select' | 'date' | 'month_year';
   placeholder?: string;
   options?: string[];
 }

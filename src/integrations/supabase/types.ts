@@ -25,6 +25,7 @@ export type Database = {
           item_trocado: string | null
           km_final: string | null
           km_inicial: string | null
+          mes_ano: string | null
           module: string
           nome: string | null
           numero_occ: string | null
@@ -45,6 +46,7 @@ export type Database = {
           item_trocado?: string | null
           km_final?: string | null
           km_inicial?: string | null
+          mes_ano?: string | null
           module: string
           nome?: string | null
           numero_occ?: string | null
@@ -65,6 +67,7 @@ export type Database = {
           item_trocado?: string | null
           km_final?: string | null
           km_inicial?: string | null
+          mes_ano?: string | null
           module?: string
           nome?: string | null
           numero_occ?: string | null
