@@ -1,0 +1,1 @@
+ALTER TABLE public.module_records ADD COLUMN data_vencimento_certificado text;

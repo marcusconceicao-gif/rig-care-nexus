@@ -16,6 +16,7 @@ export interface ModuleRecord {
   km_inicial?: string;
   km_final?: string;
   mes_ano?: string;
+  data_vencimento_certificado?: string;
   created_at?: string;
   updated_at?: string;
 }
@@ -38,4 +39,7 @@ export interface ModuleConfig {
   hasEmailConfirm?: boolean;
   hasAlerts?: boolean;
   extraFields?: ExtraField[];
+  externalLinks?: { label: string; url: string }[];
+  alertDaysBeforeExpiry?: number;
+  expiryField?: string;
 }
