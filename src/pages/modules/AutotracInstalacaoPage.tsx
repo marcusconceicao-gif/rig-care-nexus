@@ -36,6 +36,12 @@ export default function AutotracInstalacaoPage() {
             type: "text",
             placeholder: "Nome da empresa responsável",
           },
+          {
+            key: "data_instalacao",
+            label: "Data da Instalação",
+            type: "date",
+            placeholder: "Selecione a data da instalação",
+          },
         ],
       }}
     />

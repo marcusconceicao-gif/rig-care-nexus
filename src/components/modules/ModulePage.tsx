@@ -104,7 +104,7 @@ export default function ModulePage({ config }: ModulePageProps) {
       module: config.module,
       placa: form.placa || null,
       nome: form.nome || null,
-      data: new Date().toLocaleDateString("pt-BR"),
+      data: form.data_instalacao || form.data_custom || new Date().toLocaleDateString("pt-BR"),
       responsavel: form.responsavel,
       observacoes: form.observacoes,
       status: form.status,
