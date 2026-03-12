@@ -10,6 +10,7 @@ export default function AutotracManutencaoPage() {
         searchPlaceholder: "Buscar por placa...",
         columns: [
           { key: "placa", label: "Placa" },
+          { key: "tipo_rastreador", label: "Tipo Rastreador" },
           { key: "item_trocado", label: "Item Trocado" },
           { key: "empresa_responsavel", label: "Empresa Responsável" },
           { key: "data", label: "Data Execução" },
