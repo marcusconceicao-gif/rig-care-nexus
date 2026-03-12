@@ -119,6 +119,44 @@ export default function ModulePage({ config }: ModulePageProps) {
       toast({ title: "Erro ao salvar", description: error.message, variant: "destructive" });
     } else {
       toast({ title: "Registro salvo com sucesso!" });
+
+      // Auto-fill next month's km_inicial with current km_final
+      if (form.km_final && form.mes_ano) {
+        const [mes, ano] = form.mes_ano.split("/");
+        if (mes && ano) {
+          let nextMes = parseInt(mes) + 1;
+          let nextAno = parseInt(ano);
+          if (nextMes > 12) { nextMes = 1; nextAno++; }
+          const nextMesAno = `${String(nextMes).padStart(2, "0")}/${nextAno}`;
+
+          // Check if next month record exists for same placa
+          const { data: existing } = await supabase
+            .from("module_records")
+            .select("id")
+            .eq("module", config.module)
+            .eq("placa", form.placa || "")
+            .eq("mes_ano", nextMesAno)
+            .maybeSingle();
+
+          if (existing) {
+            await supabase
+              .from("module_records")
+              .update({ km_inicial: form.km_final } as any)
+              .eq("id", existing.id);
+          } else {
+            await supabase.from("module_records").insert([{
+              module: config.module,
+              placa: form.placa || null,
+              data: new Date().toLocaleDateString("pt-BR"),
+              responsavel: form.responsavel,
+              km_inicial: form.km_final,
+              mes_ano: nextMesAno,
+            }] as any);
+          }
+          toast({ title: `KM Inicial de ${nextMesAno} preenchido automaticamente!` });
+        }
+      }
+
       setForm({ placa: "", nome: "", responsavel: "", observacoes: "", status: "Ativo", emailConfirmed: false });
       setSelectedFile(null);
       setDialogOpen(false);
