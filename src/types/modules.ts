@@ -13,6 +13,8 @@ export interface ModuleRecord {
   numero_occ?: string;
   empresa_responsavel?: string;
   item_trocado?: string;
+  km_inicial?: string;
+  km_final?: string;
   created_at?: string;
   updated_at?: string;
 }
