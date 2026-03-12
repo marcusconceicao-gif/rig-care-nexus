@@ -31,7 +31,7 @@ export default function ModulePage({ config }: ModulePageProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const { toast } = useToast();
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<Record<string, any>>({
     placa: "",
     nome: "",
     responsavel: "",
