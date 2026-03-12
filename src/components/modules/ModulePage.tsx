@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Search, Plus, Upload, Mail, AlertCircle, Trash2, Loader2 } from "lucide-react";
+import { Search, Plus, Upload, Mail, AlertCircle, Trash2, Loader2, CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +17,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import type { ModuleConfig, ModuleRecord } from "@/types/modules";
@@ -100,7 +104,7 @@ export default function ModulePage({ config }: ModulePageProps) {
       module: config.module,
       placa: form.placa || null,
       nome: form.nome || null,
-      data: new Date().toLocaleDateString("pt-BR"),
+      data: form.data_instalacao || form.data_custom || new Date().toLocaleDateString("pt-BR"),
       responsavel: form.responsavel,
       observacoes: form.observacoes,
       status: form.status,
@@ -190,6 +194,37 @@ export default function ModulePage({ config }: ModulePageProps) {
                         ))}
                       </SelectContent>
                     </Select>
+                  ) : field.type === "date" ? (
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className={cn(
+                            "w-full justify-start text-left font-normal",
+                            !form[field.key] && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {form[field.key]
+                            ? format(new Date(form[field.key]), "dd/MM/yyyy")
+                            : <span>{field.placeholder || "Selecione a data"}</span>}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={form[field.key] ? new Date(form[field.key]) : undefined}
+                          onSelect={(date) =>
+                            setForm((p) => ({
+                              ...p,
+                              [field.key]: date ? format(date, "dd/MM/yyyy") : "",
+                            }))
+                          }
+                          initialFocus
+                          className={cn("p-3 pointer-events-auto")}
+                        />
+                      </PopoverContent>
+                    </Popover>
                   ) : (
                     <Input
                       placeholder={field.placeholder || ""}
