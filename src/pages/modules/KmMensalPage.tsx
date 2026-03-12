@@ -10,13 +10,18 @@ export default function KmMensalPage() {
         searchPlaceholder: "Buscar por placa...",
         columns: [
           { key: "placa", label: "Placa" },
+          { key: "mes_ano", label: "Mês/Ano" },
           { key: "km_inicial", label: "KM Inicial" },
           { key: "km_final", label: "KM Final" },
           { key: "responsavel", label: "Responsável" },
-          { key: "data", label: "Mês/Ano" },
           { key: "observacoes", label: "Observações" },
         ],
         extraFields: [
+          {
+            key: "mes_ano",
+            label: "Mês/Ano",
+            type: "month_year",
+          },
           {
             key: "km_inicial",
             label: "KM Inicial",
