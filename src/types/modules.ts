@@ -39,4 +39,7 @@ export interface ModuleConfig {
   hasEmailConfirm?: boolean;
   hasAlerts?: boolean;
   extraFields?: ExtraField[];
+  externalLinks?: { label: string; url: string }[];
+  alertDaysBeforeExpiry?: number;
+  expiryField?: string;
 }
