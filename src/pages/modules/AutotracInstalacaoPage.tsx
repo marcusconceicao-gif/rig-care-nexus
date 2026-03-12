@@ -4,8 +4,8 @@ export default function AutotracInstalacaoPage() {
   return (
     <ModulePage
       config={{
-        module: "autotrac-instalacao",
-        title: "Autotrac - Instalação",
+        module: "rastreador-instalacao",
+        title: "Rastreador - Instalação",
         searchField: "placa",
         searchPlaceholder: "Buscar por placa...",
         columns: [

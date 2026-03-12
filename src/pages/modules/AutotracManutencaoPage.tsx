@@ -4,8 +4,8 @@ export default function AutotracManutencaoPage() {
   return (
     <ModulePage
       config={{
-        module: "autotrac-manutencao",
-        title: "Autotrac - Manutenção",
+        module: "rastreador-manutencao",
+        title: "Rastreador - Manutenção",
         searchField: "placa",
         searchPlaceholder: "Buscar por placa...",
         columns: [

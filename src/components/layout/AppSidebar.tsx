@@ -39,7 +39,7 @@ const menuGroups = [
     ],
   },
   {
-    label: "Autotrac",
+    label: "Rastreador",
     items: [
       { path: "/autotrac/instalacao", label: "Instalação", icon: Radio },
       { path: "/autotrac/manutencao", label: "Manutenção", icon: Wrench },
