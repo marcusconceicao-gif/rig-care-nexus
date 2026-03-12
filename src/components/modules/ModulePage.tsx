@@ -171,6 +171,34 @@ export default function ModulePage({ config }: ModulePageProps) {
                   />
                 </div>
               )}
+              {config.extraFields?.map((field) => (
+                <div key={field.key} className="space-y-2">
+                  <Label>{field.label}</Label>
+                  {field.type === "select" && field.options ? (
+                    <Select
+                      value={form[field.key] || ""}
+                      onValueChange={(val) => setForm((p) => ({ ...p, [field.key]: val }))}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder={`Selecione ${field.label.toLowerCase()}`} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {field.options.map((opt) => (
+                          <SelectItem key={opt} value={opt}>
+                            {opt}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  ) : (
+                    <Input
+                      placeholder={field.placeholder || ""}
+                      value={form[field.key] || ""}
+                      onChange={(e) => setForm((p) => ({ ...p, [field.key]: e.target.value }))}
+                    />
+                  )}
+                </div>
+              ))}
               {config.searchField === "nome" && (
                 <div className="space-y-2">
                   <Label>Nome</Label>
