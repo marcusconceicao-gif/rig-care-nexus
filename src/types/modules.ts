@@ -15,6 +15,7 @@ export interface ModuleRecord {
   item_trocado?: string;
   km_inicial?: string;
   km_final?: string;
+  mes_ano?: string;
   created_at?: string;
   updated_at?: string;
 }
