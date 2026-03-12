@@ -19,6 +19,7 @@ export type Database = {
           arquivo_url: string | null
           created_at: string
           data: string
+          data_vencimento_certificado: string | null
           email_confirmado: boolean | null
           empresa_responsavel: string | null
           id: string
@@ -40,6 +41,7 @@ export type Database = {
           arquivo_url?: string | null
           created_at?: string
           data: string
+          data_vencimento_certificado?: string | null
           email_confirmado?: boolean | null
           empresa_responsavel?: string | null
           id?: string
@@ -61,6 +63,7 @@ export type Database = {
           arquivo_url?: string | null
           created_at?: string
           data?: string
+          data_vencimento_certificado?: string | null
           email_confirmado?: boolean | null
           empresa_responsavel?: string | null
           id?: string
