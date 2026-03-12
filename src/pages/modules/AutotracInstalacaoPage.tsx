@@ -12,6 +12,7 @@ export default function AutotracInstalacaoPage() {
           { key: "placa", label: "Placa" },
           { key: "tipo_rastreador", label: "Tipo Rastreador" },
           { key: "numero_occ", label: "Nº OCC" },
+          { key: "empresa_responsavel", label: "Empresa Responsável" },
           { key: "responsavel", label: "Responsável" },
           { key: "data", label: "Data Instalação" },
           { key: "observacoes", label: "Observações" },
@@ -28,6 +29,12 @@ export default function AutotracInstalacaoPage() {
             label: "Número OCC",
             type: "text",
             placeholder: "Digite o nº OCC do caminhão",
+          },
+          {
+            key: "empresa_responsavel",
+            label: "Empresa Responsável",
+            type: "text",
+            placeholder: "Nome da empresa responsável",
           },
         ],
       }}
