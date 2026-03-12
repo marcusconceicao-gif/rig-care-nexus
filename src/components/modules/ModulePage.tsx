@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import type { ModuleConfig, ModuleRecord } from "@/types/modules";
@@ -30,7 +31,7 @@ export default function ModulePage({ config }: ModulePageProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const { toast } = useToast();
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<Record<string, any>>({
     placa: "",
     nome: "",
     responsavel: "",
@@ -88,6 +89,13 @@ export default function ModulePage({ config }: ModulePageProps) {
       arquivo_url = urlData.publicUrl;
     }
 
+    const extraData: Record<string, any> = {};
+    if (config.extraFields) {
+      for (const field of config.extraFields) {
+        extraData[field.key] = form[field.key] || null;
+      }
+    }
+
     const newRecord = {
       module: config.module,
       placa: form.placa || null,
@@ -98,6 +106,7 @@ export default function ModulePage({ config }: ModulePageProps) {
       status: form.status,
       arquivo_url: arquivo_url || null,
       email_confirmado: form.emailConfirmed,
+      ...extraData,
     };
 
     const { error } = await supabase.from("module_records").insert([newRecord]);
@@ -162,6 +171,34 @@ export default function ModulePage({ config }: ModulePageProps) {
                   />
                 </div>
               )}
+              {config.extraFields?.map((field) => (
+                <div key={field.key} className="space-y-2">
+                  <Label>{field.label}</Label>
+                  {field.type === "select" && field.options ? (
+                    <Select
+                      value={form[field.key] || ""}
+                      onValueChange={(val) => setForm((p) => ({ ...p, [field.key]: val }))}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder={`Selecione ${field.label.toLowerCase()}`} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {field.options.map((opt) => (
+                          <SelectItem key={opt} value={opt}>
+                            {opt}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  ) : (
+                    <Input
+                      placeholder={field.placeholder || ""}
+                      value={form[field.key] || ""}
+                      onChange={(e) => setForm((p) => ({ ...p, [field.key]: e.target.value }))}
+                    />
+                  )}
+                </div>
+              ))}
               {config.searchField === "nome" && (
                 <div className="space-y-2">
                   <Label>Nome</Label>
