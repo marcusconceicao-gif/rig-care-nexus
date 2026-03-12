@@ -9,17 +9,28 @@ export interface ModuleRecord {
   status?: string;
   arquivo_url?: string;
   email_confirmado?: boolean;
+  tipo_rastreador?: string;
+  numero_occ?: string;
   created_at?: string;
   updated_at?: string;
 }
 
+export interface ExtraField {
+  key: string;
+  label: string;
+  type: 'text' | 'select';
+  placeholder?: string;
+  options?: string[];
+}
+
 export interface ModuleConfig {
   title: string;
-  module: string; // unique key for DB filtering
+  module: string;
   searchField: 'placa' | 'nome';
   searchPlaceholder: string;
   columns: { key: string; label: string }[];
   hasFileUpload?: boolean;
   hasEmailConfirm?: boolean;
   hasAlerts?: boolean;
+  extraFields?: ExtraField[];
 }
