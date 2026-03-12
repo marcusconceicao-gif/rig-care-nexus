@@ -23,10 +23,12 @@ export type Database = {
           id: string
           module: string
           nome: string | null
+          numero_occ: string | null
           observacoes: string | null
           placa: string | null
           responsavel: string
           status: string | null
+          tipo_rastreador: string | null
           updated_at: string
         }
         Insert: {
@@ -37,10 +39,12 @@ export type Database = {
           id?: string
           module: string
           nome?: string | null
+          numero_occ?: string | null
           observacoes?: string | null
           placa?: string | null
           responsavel: string
           status?: string | null
+          tipo_rastreador?: string | null
           updated_at?: string
         }
         Update: {
@@ -51,10 +55,12 @@ export type Database = {
           id?: string
           module?: string
           nome?: string | null
+          numero_occ?: string | null
           observacoes?: string | null
           placa?: string | null
           responsavel?: string
           status?: string | null
+          tipo_rastreador?: string | null
           updated_at?: string
         }
         Relationships: []
