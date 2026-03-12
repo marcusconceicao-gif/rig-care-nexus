@@ -89,6 +89,13 @@ export default function ModulePage({ config }: ModulePageProps) {
       arquivo_url = urlData.publicUrl;
     }
 
+    const extraData: Record<string, any> = {};
+    if (config.extraFields) {
+      for (const field of config.extraFields) {
+        extraData[field.key] = form[field.key] || null;
+      }
+    }
+
     const newRecord = {
       module: config.module,
       placa: form.placa || null,
@@ -99,6 +106,7 @@ export default function ModulePage({ config }: ModulePageProps) {
       status: form.status,
       arquivo_url: arquivo_url || null,
       email_confirmado: form.emailConfirmed,
+      ...extraData,
     };
 
     const { error } = await supabase.from("module_records").insert([newRecord]);
