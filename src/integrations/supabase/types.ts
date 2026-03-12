@@ -20,6 +20,7 @@ export type Database = {
           created_at: string
           data: string
           email_confirmado: boolean | null
+          empresa_responsavel: string | null
           id: string
           module: string
           nome: string | null
@@ -36,6 +37,7 @@ export type Database = {
           created_at?: string
           data: string
           email_confirmado?: boolean | null
+          empresa_responsavel?: string | null
           id?: string
           module: string
           nome?: string | null
@@ -52,6 +54,7 @@ export type Database = {
           created_at?: string
           data?: string
           email_confirmado?: boolean | null
+          empresa_responsavel?: string | null
           id?: string
           module?: string
           nome?: string | null

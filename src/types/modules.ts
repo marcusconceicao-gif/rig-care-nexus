@@ -11,6 +11,7 @@ export interface ModuleRecord {
   email_confirmado?: boolean;
   tipo_rastreador?: string;
   numero_occ?: string;
+  empresa_responsavel?: string;
   created_at?: string;
   updated_at?: string;
 }
