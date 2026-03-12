@@ -378,8 +378,66 @@ export default function ModulePage({ config }: ModulePageProps) {
         />
       </div>
 
-      {/* Alert badges */}
-      {config.hasAlerts && records.some((r) => r.status === "Vencido") && (
+      {/* External links */}
+      {config.externalLinks && config.externalLinks.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {config.externalLinks.map((link) => (
+            <a
+              key={link.url}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm text-primary hover:underline bg-primary/10 px-3 py-1.5 rounded-md"
+            >
+              <ExternalLink className="w-4 h-4" />
+              {link.label}
+            </a>
+          ))}
+        </div>
+      )}
+
+      {/* Expiry alerts (15 days) */}
+      {config.expiryField && config.alertDaysBeforeExpiry && (() => {
+        const today = new Date();
+        const expiringRecords = records.filter((r) => {
+          const dateStr = (r as any)[config.expiryField!];
+          if (!dateStr) return false;
+          const parsed = parse(dateStr, "dd/MM/yyyy", new Date());
+          if (!isValid(parsed)) return false;
+          const diff = differenceInDays(parsed, today);
+          return diff >= 0 && diff <= config.alertDaysBeforeExpiry!;
+        });
+        const expiredRecords = records.filter((r) => {
+          const dateStr = (r as any)[config.expiryField!];
+          if (!dateStr) return false;
+          const parsed = parse(dateStr, "dd/MM/yyyy", new Date());
+          if (!isValid(parsed)) return false;
+          return differenceInDays(parsed, today) < 0;
+        });
+        return (
+          <>
+            {expiredRecords.length > 0 && (
+              <div className="flex items-center gap-2 p-3 rounded-lg bg-destructive/10 border border-destructive/20">
+                <AlertCircle className="w-4 h-4 text-destructive" />
+                <span className="text-sm text-destructive font-medium">
+                  {expiredRecords.length} certificado(s) com vencimento expirado!
+                </span>
+              </div>
+            )}
+            {expiringRecords.length > 0 && (
+              <div className="flex items-center gap-2 p-3 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
+                <AlertTriangle className="w-4 h-4 text-yellow-600" />
+                <span className="text-sm text-yellow-700 font-medium">
+                  {expiringRecords.length} certificado(s) vencendo nos próximos {config.alertDaysBeforeExpiry} dias!
+                </span>
+              </div>
+            )}
+          </>
+        );
+      })()}
+
+      {/* Alert badges (legacy) */}
+      {config.hasAlerts && !config.expiryField && records.some((r) => r.status === "Vencido") && (
         <div className="flex items-center gap-2 p-3 rounded-lg bg-destructive/10 border border-destructive/20">
           <AlertCircle className="w-4 h-4 text-destructive" />
           <span className="text-sm text-destructive font-medium">
