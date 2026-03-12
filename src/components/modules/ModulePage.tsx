@@ -194,6 +194,37 @@ export default function ModulePage({ config }: ModulePageProps) {
                         ))}
                       </SelectContent>
                     </Select>
+                  ) : field.type === "date" ? (
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className={cn(
+                            "w-full justify-start text-left font-normal",
+                            !form[field.key] && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {form[field.key]
+                            ? format(new Date(form[field.key]), "dd/MM/yyyy")
+                            : <span>{field.placeholder || "Selecione a data"}</span>}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={form[field.key] ? new Date(form[field.key]) : undefined}
+                          onSelect={(date) =>
+                            setForm((p) => ({
+                              ...p,
+                              [field.key]: date ? format(date, "dd/MM/yyyy") : "",
+                            }))
+                          }
+                          initialFocus
+                          className={cn("p-3 pointer-events-auto")}
+                        />
+                      </PopoverContent>
+                    </Popover>
                   ) : (
                     <Input
                       placeholder={field.placeholder || ""}

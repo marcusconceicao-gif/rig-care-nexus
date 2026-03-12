@@ -19,7 +19,7 @@ export interface ModuleRecord {
 export interface ExtraField {
   key: string;
   label: string;
-  type: 'text' | 'select';
+  type: 'text' | 'select' | 'date';
   placeholder?: string;
   options?: string[];
 }
