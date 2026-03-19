@@ -241,7 +241,16 @@ export default function ChecklistRastreamentoPage() {
                 />
               </div>
 
-              {/* Responsável */}
+              {/* Data de Execução */}
+              <div className="space-y-2">
+                <Label>Data de Execução</Label>
+                <Input
+                  value={new Date().toLocaleDateString("pt-BR")}
+                  disabled
+                  className="bg-muted"
+                />
+              </div>
+
               <div className="space-y-2">
                 <Label>Responsável pela Inspeção</Label>
                 <Input
