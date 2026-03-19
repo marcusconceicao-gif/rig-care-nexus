@@ -17,6 +17,7 @@ export type Database = {
       module_records: {
         Row: {
           arquivo_url: string | null
+          checklist_data: Json | null
           created_at: string
           data: string
           data_vencimento_certificado: string | null
@@ -39,6 +40,7 @@ export type Database = {
         }
         Insert: {
           arquivo_url?: string | null
+          checklist_data?: Json | null
           created_at?: string
           data: string
           data_vencimento_certificado?: string | null
@@ -61,6 +63,7 @@ export type Database = {
         }
         Update: {
           arquivo_url?: string | null
+          checklist_data?: Json | null
           created_at?: string
           data?: string
           data_vencimento_certificado?: string | null
