@@ -43,6 +43,7 @@ const menuGroups = [
     items: [
       { path: "/autotrac/instalacao", label: "Instalação", icon: Radio },
       { path: "/autotrac/manutencao", label: "Manutenção", icon: Wrench },
+      { path: "/checklist-rastreamento", label: "Checklist", icon: ClipboardCheck },
     ],
   },
   {
