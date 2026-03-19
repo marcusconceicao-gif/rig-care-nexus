@@ -292,6 +292,12 @@ export default function ModulePage({ config }: ModulePageProps) {
                         </SelectContent>
                       </Select>
                     </div>
+                  ) : field.type === "readonly_date" ? (
+                    <Input
+                      value={new Date().toLocaleDateString("pt-BR")}
+                      disabled
+                      className="bg-muted"
+                    />
                   ) : (
                     <Input
                       placeholder={field.placeholder || ""}
