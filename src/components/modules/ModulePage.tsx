@@ -34,6 +34,7 @@ export default function ModulePage({ config }: ModulePageProps) {
   const [saving, setSaving] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [dynamicOptions, setDynamicOptions] = useState<Record<string, string[]>>({});
   const { toast } = useToast();
   const [form, setForm] = useState<Record<string, any>>({
     placa: "",
@@ -48,6 +49,29 @@ export default function ModulePage({ config }: ModulePageProps) {
   useEffect(() => {
     fetchRecords();
   }, [config.module]);
+
+  // Fetch dynamic select options
+  useEffect(() => {
+    const dynamicFields = config.extraFields?.filter((f) => f.type === "dynamic_select" && f.dynamicSourceModule && f.dynamicSourceField);
+    if (!dynamicFields?.length) return;
+
+    const fetchDynamic = async () => {
+      for (const field of dynamicFields) {
+        const { data } = await supabase
+          .from("module_records")
+          .select(field.dynamicSourceField!)
+          .eq("module", field.dynamicSourceModule!)
+          .not(field.dynamicSourceField!, "is", null)
+          .order(field.dynamicSourceField!, { ascending: true });
+
+        if (data) {
+          const unique = [...new Set(data.map((r: any) => r[field.dynamicSourceField!]).filter(Boolean))] as string[];
+          setDynamicOptions((prev) => ({ ...prev, [field.key]: unique }));
+        }
+      }
+    };
+    fetchDynamic();
+  }, [config.extraFields]);
 
   const fetchRecords = async () => {
     setLoading(true);
