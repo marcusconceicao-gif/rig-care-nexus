@@ -26,6 +26,7 @@ import ManutencaoCarretasPage from "@/pages/modules/ManutencaoCarretasPage";
 import LavagemCarretasPage from "@/pages/modules/LavagemCarretasPage";
 import CarretasWebtracPage from "@/pages/modules/CarretasWebtracPage";
 import CarretasSegurosPage from "@/pages/modules/CarretasSegurosPage";
+import ChecklistRastreamentoPage from "@/pages/modules/ChecklistRastreamentoPage";
 
 const queryClient = new QueryClient();
 
@@ -58,6 +59,7 @@ const App = () => (
             <Route path="/lavagem-carretas" element={<LavagemCarretasPage />} />
             <Route path="/carretas-webtrac" element={<CarretasWebtracPage />} />
             <Route path="/carretas-seguros" element={<CarretasSegurosPage />} />
+            <Route path="/checklist-rastreamento" element={<ChecklistRastreamentoPage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

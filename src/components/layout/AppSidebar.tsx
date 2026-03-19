@@ -5,7 +5,7 @@ import {
   Truck, FileText, Users, Radio, Gauge, Clock, Shield,
   AlertTriangle, Ban, FileWarning, PlayCircle, Zap,
   ListOrdered, Wrench, Droplets, Satellite, ShieldCheck,
-  ChevronDown, LayoutDashboard, Menu, X
+  ChevronDown, LayoutDashboard, Menu, X, ClipboardCheck
 } from "lucide-react";
 
 const menuGroups = [
@@ -43,6 +43,7 @@ const menuGroups = [
     items: [
       { path: "/autotrac/instalacao", label: "Instalação", icon: Radio },
       { path: "/autotrac/manutencao", label: "Manutenção", icon: Wrench },
+      { path: "/checklist-rastreamento", label: "Checklist", icon: ClipboardCheck },
     ],
   },
   {
