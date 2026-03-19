@@ -322,6 +322,28 @@ export default function ModulePage({ config }: ModulePageProps) {
                       disabled
                       className="bg-muted"
                     />
+                  ) : field.type === "dynamic_select" ? (
+                    <Select
+                      value={form[field.key] || ""}
+                      onValueChange={(val) => setForm((p) => ({ ...p, [field.key]: val }))}
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder={field.placeholder || `Selecione ${field.label.toLowerCase()}`} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {(dynamicOptions[field.key] || []).length === 0 ? (
+                          <SelectItem value="__empty" disabled>
+                            Nenhum registro encontrado
+                          </SelectItem>
+                        ) : (
+                          (dynamicOptions[field.key] || []).map((opt) => (
+                            <SelectItem key={opt} value={opt}>
+                              {opt}
+                            </SelectItem>
+                          ))
+                        )}
+                      </SelectContent>
+                    </Select>
                   ) : (
                     <Input
                       placeholder={field.placeholder || ""}
