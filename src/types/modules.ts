@@ -24,9 +24,13 @@ export interface ModuleRecord {
 export interface ExtraField {
   key: string;
   label: string;
-  type: 'text' | 'select' | 'date' | 'month_year' | 'readonly_date';
+  type: 'text' | 'select' | 'date' | 'month_year' | 'readonly_date' | 'dynamic_select';
   placeholder?: string;
   options?: string[];
+  /** For dynamic_select: module to fetch names from */
+  dynamicSourceModule?: string;
+  /** For dynamic_select: field to read from source records */
+  dynamicSourceField?: string;
 }
 
 export interface ModuleConfig {

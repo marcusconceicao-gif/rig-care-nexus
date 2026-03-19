@@ -21,8 +21,10 @@ export default function AlteracoesPage() {
           {
             key: "nome",
             label: "Motorista",
-            type: "text",
-            placeholder: "Nome do motorista",
+            type: "dynamic_select",
+            placeholder: "Selecione o motorista",
+            dynamicSourceModule: "motoristas",
+            dynamicSourceField: "nome",
           },
           {
             key: "item_trocado",
