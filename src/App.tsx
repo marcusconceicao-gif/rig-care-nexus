@@ -26,6 +26,7 @@ import ManutencaoCarretasPage from "@/pages/modules/ManutencaoCarretasPage";
 import LavagemCarretasPage from "@/pages/modules/LavagemCarretasPage";
 import CarretasWebtracPage from "@/pages/modules/CarretasWebtracPage";
 import CarretasSegurosPage from "@/pages/modules/CarretasSegurosPage";
+import ChecklistRastreamentoPage from "@/pages/modules/ChecklistRastreamentoPage";
 
 const queryClient = new QueryClient();
 
