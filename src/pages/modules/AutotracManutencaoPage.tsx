@@ -37,12 +37,6 @@ export default function AutotracManutencaoPage() {
             type: "text",
             placeholder: "Nome da empresa responsável",
           },
-          {
-            key: "data_instalacao",
-            label: "Data da Execução",
-            type: "date",
-            placeholder: "Selecione a data da execução",
-          },
         ],
       }}
     />
