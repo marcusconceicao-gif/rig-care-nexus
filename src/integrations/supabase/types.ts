@@ -18,11 +18,13 @@ export type Database = {
         Row: {
           arquivo_url: string | null
           checklist_data: Json | null
+          cpf: string | null
           created_at: string
           data: string
           data_vencimento_certificado: string | null
           email_confirmado: boolean | null
           empresa_responsavel: string | null
+          foto_url: string | null
           id: string
           item_trocado: string | null
           km_final: string | null
@@ -41,11 +43,13 @@ export type Database = {
         Insert: {
           arquivo_url?: string | null
           checklist_data?: Json | null
+          cpf?: string | null
           created_at?: string
           data: string
           data_vencimento_certificado?: string | null
           email_confirmado?: boolean | null
           empresa_responsavel?: string | null
+          foto_url?: string | null
           id?: string
           item_trocado?: string | null
           km_final?: string | null
@@ -64,11 +68,13 @@ export type Database = {
         Update: {
           arquivo_url?: string | null
           checklist_data?: Json | null
+          cpf?: string | null
           created_at?: string
           data?: string
           data_vencimento_certificado?: string | null
           email_confirmado?: boolean | null
           empresa_responsavel?: string | null
+          foto_url?: string | null
           id?: string
           item_trocado?: string | null
           km_final?: string | null
