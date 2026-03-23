@@ -369,6 +369,35 @@ export default function ModulePage({ config }: ModulePageProps) {
                         )}
                       </SelectContent>
                     </Select>
+                  ) : field.type === "photo" ? (
+                    <div className="space-y-2">
+                      <label className="border-2 border-dashed border-border rounded-lg p-4 text-center cursor-pointer hover:border-primary transition-colors block">
+                        {photoPreview ? (
+                          <img src={photoPreview} alt="Preview" className="w-20 h-20 rounded-full object-cover mx-auto mb-2" />
+                        ) : (
+                          <Camera className="w-8 h-8 mx-auto text-muted-foreground mb-2" />
+                        )}
+                        <p className="text-sm text-muted-foreground">
+                          {selectedPhoto ? selectedPhoto.name : "Clique para adicionar foto"}
+                        </p>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0] || null;
+                            setSelectedPhoto(file);
+                            if (file) {
+                              const reader = new FileReader();
+                              reader.onloadend = () => setPhotoPreview(reader.result as string);
+                              reader.readAsDataURL(file);
+                            } else {
+                              setPhotoPreview(null);
+                            }
+                          }}
+                        />
+                      </label>
+                    </div>
                   ) : (
                     <Input
                       placeholder={field.placeholder || ""}
