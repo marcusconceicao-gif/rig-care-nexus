@@ -9,7 +9,9 @@ export default function MotoristasPage() {
         searchField: "nome",
         searchPlaceholder: "Buscar por nome...",
         columns: [
+          { key: "foto_url", label: "Foto" },
           { key: "nome", label: "Nome" },
+          { key: "cpf", label: "CPF" },
           { key: "placa", label: "Placa" },
           { key: "responsavel", label: "Responsável" },
           { key: "data", label: "Data Cadastro" },
@@ -22,6 +24,17 @@ export default function MotoristasPage() {
             label: "Nome do Motorista",
             type: "text",
             placeholder: "Nome completo",
+          },
+          {
+            key: "cpf",
+            label: "CPF",
+            type: "text",
+            placeholder: "000.000.000-00",
+          },
+          {
+            key: "foto_url",
+            label: "Foto do Motorista",
+            type: "photo",
           },
           {
             key: "placa",
