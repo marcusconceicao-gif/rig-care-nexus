@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Search, Plus, Upload, Mail, AlertCircle, Trash2, Loader2, CalendarIcon, ExternalLink, AlertTriangle } from "lucide-react";
+import { Search, Plus, Upload, Mail, AlertCircle, Trash2, Loader2, CalendarIcon, ExternalLink, AlertTriangle, Camera } from "lucide-react";
 import { format, parse, differenceInDays, isValid } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
