@@ -206,6 +206,8 @@ export default function ModulePage({ config }: ModulePageProps) {
 
       setForm({ placa: "", nome: "", responsavel: "", observacoes: "", status: "Ativo", emailConfirmed: false });
       setSelectedFile(null);
+      setSelectedPhoto(null);
+      setPhotoPreview(null);
       setDialogOpen(false);
       fetchRecords();
     }
