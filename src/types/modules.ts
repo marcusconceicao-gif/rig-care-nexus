@@ -17,6 +17,8 @@ export interface ModuleRecord {
   km_final?: string;
   mes_ano?: string;
   data_vencimento_certificado?: string;
+  cpf?: string;
+  foto_url?: string;
   created_at?: string;
   updated_at?: string;
 }
@@ -24,7 +26,7 @@ export interface ModuleRecord {
 export interface ExtraField {
   key: string;
   label: string;
-  type: 'text' | 'select' | 'date' | 'month_year' | 'readonly_date' | 'dynamic_select';
+  type: 'text' | 'select' | 'date' | 'month_year' | 'readonly_date' | 'dynamic_select' | 'photo';
   placeholder?: string;
   options?: string[];
   /** For dynamic_select: module to fetch names from */

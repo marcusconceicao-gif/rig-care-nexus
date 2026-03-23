@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Search, Plus, Upload, Mail, AlertCircle, Trash2, Loader2, CalendarIcon, ExternalLink, AlertTriangle } from "lucide-react";
+import { Search, Plus, Upload, Mail, AlertCircle, Trash2, Loader2, CalendarIcon, ExternalLink, AlertTriangle, Camera } from "lucide-react";
 import { format, parse, differenceInDays, isValid } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
@@ -34,6 +34,8 @@ export default function ModulePage({ config }: ModulePageProps) {
   const [saving, setSaving] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedPhoto, setSelectedPhoto] = useState<File | null>(null);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [dynamicOptions, setDynamicOptions] = useState<Record<string, string[]>>({});
   const { toast } = useToast();
   const [form, setForm] = useState<Record<string, any>>({
@@ -117,9 +119,29 @@ export default function ModulePage({ config }: ModulePageProps) {
       arquivo_url = urlData.publicUrl;
     }
 
+    // Upload photo if selected
+    let foto_url: string | undefined;
+    if (selectedPhoto) {
+      const fileExt = selectedPhoto.name.split(".").pop();
+      const filePath = `${config.module}/fotos/${Date.now()}.${fileExt}`;
+      const { error: uploadError } = await supabase.storage
+        .from("module-files")
+        .upload(filePath, selectedPhoto);
+
+      if (uploadError) {
+        toast({ title: "Erro no upload da foto", description: uploadError.message, variant: "destructive" });
+        setSaving(false);
+        return;
+      }
+
+      const { data: urlData } = supabase.storage.from("module-files").getPublicUrl(filePath);
+      foto_url = urlData.publicUrl;
+    }
+
     const extraData: Record<string, any> = {};
     if (config.extraFields) {
       for (const field of config.extraFields) {
+        if (field.type === "photo") continue;
         extraData[field.key] = form[field.key] || null;
       }
     }
@@ -134,6 +156,7 @@ export default function ModulePage({ config }: ModulePageProps) {
       status: form.status,
       arquivo_url: arquivo_url || null,
       email_confirmado: form.emailConfirmed,
+      foto_url: foto_url || null,
       ...extraData,
     };
 
@@ -183,6 +206,8 @@ export default function ModulePage({ config }: ModulePageProps) {
 
       setForm({ placa: "", nome: "", responsavel: "", observacoes: "", status: "Ativo", emailConfirmed: false });
       setSelectedFile(null);
+      setSelectedPhoto(null);
+      setPhotoPreview(null);
       setDialogOpen(false);
       fetchRecords();
     }
@@ -344,6 +369,35 @@ export default function ModulePage({ config }: ModulePageProps) {
                         )}
                       </SelectContent>
                     </Select>
+                  ) : field.type === "photo" ? (
+                    <div className="space-y-2">
+                      <label className="border-2 border-dashed border-border rounded-lg p-4 text-center cursor-pointer hover:border-primary transition-colors block">
+                        {photoPreview ? (
+                          <img src={photoPreview} alt="Preview" className="w-20 h-20 rounded-full object-cover mx-auto mb-2" />
+                        ) : (
+                          <Camera className="w-8 h-8 mx-auto text-muted-foreground mb-2" />
+                        )}
+                        <p className="text-sm text-muted-foreground">
+                          {selectedPhoto ? selectedPhoto.name : "Clique para adicionar foto"}
+                        </p>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0] || null;
+                            setSelectedPhoto(file);
+                            if (file) {
+                              const reader = new FileReader();
+                              reader.onloadend = () => setPhotoPreview(reader.result as string);
+                              reader.readAsDataURL(file);
+                            } else {
+                              setPhotoPreview(null);
+                            }
+                          }}
+                        />
+                      </label>
+                    </div>
                   ) : (
                     <Input
                       placeholder={field.placeholder || ""}
@@ -542,7 +596,17 @@ export default function ModulePage({ config }: ModulePageProps) {
                   >
                     {config.columns.map((col) => (
                       <td key={col.key} className="py-3 px-4">
-                        {col.key === "status" ? (
+                        {col.key === "foto_url" && (record as any)[col.key] ? (
+                          <img
+                            src={(record as any)[col.key]}
+                            alt="Foto"
+                            className="w-10 h-10 rounded-full object-cover border border-border"
+                          />
+                        ) : col.key === "foto_url" ? (
+                          <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+                            <Camera className="w-4 h-4 text-muted-foreground" />
+                          </div>
+                        ) : col.key === "status" ? (
                           <Badge
                             variant={
                               (record as any)[col.key] === "Vencido"
