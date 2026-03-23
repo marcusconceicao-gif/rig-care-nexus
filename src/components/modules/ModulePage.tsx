@@ -119,9 +119,29 @@ export default function ModulePage({ config }: ModulePageProps) {
       arquivo_url = urlData.publicUrl;
     }
 
+    // Upload photo if selected
+    let foto_url: string | undefined;
+    if (selectedPhoto) {
+      const fileExt = selectedPhoto.name.split(".").pop();
+      const filePath = `${config.module}/fotos/${Date.now()}.${fileExt}`;
+      const { error: uploadError } = await supabase.storage
+        .from("module-files")
+        .upload(filePath, selectedPhoto);
+
+      if (uploadError) {
+        toast({ title: "Erro no upload da foto", description: uploadError.message, variant: "destructive" });
+        setSaving(false);
+        return;
+      }
+
+      const { data: urlData } = supabase.storage.from("module-files").getPublicUrl(filePath);
+      foto_url = urlData.publicUrl;
+    }
+
     const extraData: Record<string, any> = {};
     if (config.extraFields) {
       for (const field of config.extraFields) {
+        if (field.type === "photo") continue;
         extraData[field.key] = form[field.key] || null;
       }
     }
