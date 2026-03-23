@@ -34,6 +34,8 @@ export default function ModulePage({ config }: ModulePageProps) {
   const [saving, setSaving] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedPhoto, setSelectedPhoto] = useState<File | null>(null);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [dynamicOptions, setDynamicOptions] = useState<Record<string, string[]>>({});
   const { toast } = useToast();
   const [form, setForm] = useState<Record<string, any>>({
