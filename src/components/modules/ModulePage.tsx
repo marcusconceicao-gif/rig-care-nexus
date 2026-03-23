@@ -596,7 +596,17 @@ export default function ModulePage({ config }: ModulePageProps) {
                   >
                     {config.columns.map((col) => (
                       <td key={col.key} className="py-3 px-4">
-                        {col.key === "status" ? (
+                        {col.key === "foto_url" && (record as any)[col.key] ? (
+                          <img
+                            src={(record as any)[col.key]}
+                            alt="Foto"
+                            className="w-10 h-10 rounded-full object-cover border border-border"
+                          />
+                        ) : col.key === "foto_url" ? (
+                          <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+                            <Camera className="w-4 h-4 text-muted-foreground" />
+                          </div>
+                        ) : col.key === "status" ? (
                           <Badge
                             variant={
                               (record as any)[col.key] === "Vencido"
