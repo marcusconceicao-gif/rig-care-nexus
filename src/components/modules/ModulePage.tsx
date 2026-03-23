@@ -156,6 +156,7 @@ export default function ModulePage({ config }: ModulePageProps) {
       status: form.status,
       arquivo_url: arquivo_url || null,
       email_confirmado: form.emailConfirmed,
+      foto_url: foto_url || null,
       ...extraData,
     };
 
