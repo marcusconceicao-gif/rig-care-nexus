@@ -665,6 +665,7 @@ export default function ModulePage({ config }: ModulePageProps) {
 
       {/* Table */}
       <div className="bg-card rounded-lg border border-border overflow-hidden">
+        <ScrollArea className="max-h-[60vh]">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
