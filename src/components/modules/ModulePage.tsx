@@ -631,7 +631,15 @@ export default function ModulePage({ config }: ModulePageProps) {
                         )}
                       </td>
                     ))}
-                    <td className="py-3 px-4 text-right">
+                    <td className="py-3 px-4 text-right flex items-center justify-end gap-1">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setViewRecord(record)}
+                        className="text-muted-foreground hover:text-primary"
+                      >
+                        <Eye className="w-4 h-4" />
+                      </Button>
                       <Button
                         variant="ghost"
                         size="sm"
