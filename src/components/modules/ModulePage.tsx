@@ -766,6 +766,7 @@ export default function ModulePage({ config }: ModulePageProps) {
             </tbody>
           </table>
         </div>
+        </ScrollArea>
       </div>
       {/* View Record Dialog */}
       <Dialog open={!!viewRecord} onOpenChange={(open) => !open && setViewRecord(null)}>
