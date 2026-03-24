@@ -52,7 +52,7 @@ const App = () => (
             <Route path="/fila-agregamento" element={<FilaAgregamentoPage />} />
             <Route path="/autotrac/instalacao" element={<AutotracInstalacaoPage />} />
             <Route path="/autotrac/manutencao" element={<AutotracManutencaoPage />} />
-            <Route path="/km-mensal" element={<KmMensalPage />} />
+            
             <Route path="/tacografo" element={<TacografoPage />} />
             <Route path="/seguro" element={<SeguroPage />} />
             <Route path="/quebras-acidentes" element={<QuebrasAcidentesPage />} />
