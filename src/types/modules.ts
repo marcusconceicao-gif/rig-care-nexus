@@ -19,6 +19,10 @@ export interface ModuleRecord {
   data_vencimento_certificado?: string;
   cpf?: string;
   foto_url?: string;
+  trava_quinta_roda?: string;
+  segunda_tecnologia?: string;
+  segunda_tec_usuario?: string;
+  segunda_tec_senha?: string;
   created_at?: string;
   updated_at?: string;
 }
