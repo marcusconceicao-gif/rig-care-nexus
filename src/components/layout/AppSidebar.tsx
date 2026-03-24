@@ -49,7 +49,7 @@ const menuGroups = [
   {
     label: "Controles",
     items: [
-      { path: "/km-mensal", label: "KM Mensal", icon: Gauge },
+      
       { path: "/tacografo", label: "Tacógrafo", icon: Clock },
       { path: "/seguro", label: "Seguro", icon: Shield },
       { path: "/inicio-fim-operacao", label: "Início/Fim Op.", icon: PlayCircle },
