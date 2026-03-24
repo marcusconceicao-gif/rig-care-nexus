@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Search, Plus, Upload, Mail, AlertCircle, Trash2, Loader2, CalendarIcon, ExternalLink, AlertTriangle, Camera } from "lucide-react";
+import { Search, Plus, Upload, Mail, AlertCircle, Trash2, Loader2, CalendarIcon, ExternalLink, AlertTriangle, Camera, Eye } from "lucide-react";
 import { format, parse, differenceInDays, isValid } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
@@ -37,6 +37,7 @@ export default function ModulePage({ config }: ModulePageProps) {
   const [selectedPhoto, setSelectedPhoto] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [dynamicOptions, setDynamicOptions] = useState<Record<string, string[]>>({});
+  const [viewRecord, setViewRecord] = useState<ModuleRecord | null>(null);
   const { toast } = useToast();
   const [form, setForm] = useState<Record<string, any>>({
     placa: "",
@@ -630,7 +631,15 @@ export default function ModulePage({ config }: ModulePageProps) {
                         )}
                       </td>
                     ))}
-                    <td className="py-3 px-4 text-right">
+                    <td className="py-3 px-4 text-right flex items-center justify-end gap-1">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => setViewRecord(record)}
+                        className="text-muted-foreground hover:text-primary"
+                      >
+                        <Eye className="w-4 h-4" />
+                      </Button>
                       <Button
                         variant="ghost"
                         size="sm"
@@ -647,6 +656,70 @@ export default function ModulePage({ config }: ModulePageProps) {
           </table>
         </div>
       </div>
+      {/* View Record Dialog */}
+      <Dialog open={!!viewRecord} onOpenChange={(open) => !open && setViewRecord(null)}>
+        <DialogContent className="sm:max-w-lg max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Detalhes do Registro</DialogTitle>
+          </DialogHeader>
+          {viewRecord && (
+            <div className="space-y-4 pt-2">
+              {(viewRecord as any).foto_url && (
+                <div className="flex justify-center">
+                  <img
+                    src={(viewRecord as any).foto_url}
+                    alt="Foto"
+                    className="w-24 h-24 rounded-full object-cover border-2 border-border"
+                  />
+                </div>
+              )}
+              <div className="grid grid-cols-2 gap-3">
+                {config.columns.map((col) => {
+                  const value = (viewRecord as any)[col.key];
+                  if (col.key === "foto_url") return null;
+                  return (
+                    <div key={col.key} className="space-y-1">
+                      <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{col.label}</p>
+                      {col.key === "arquivo_url" && value ? (
+                        <a href={value} target="_blank" rel="noopener noreferrer" className="text-sm text-primary underline">
+                          Ver arquivo
+                        </a>
+                      ) : col.key === "status" ? (
+                        <Badge variant={(value === "Vencido") ? "destructive" : "secondary"}>
+                          {value || "-"}
+                        </Badge>
+                      ) : (
+                        <p className="text-sm text-foreground">{value || "-"}</p>
+                      )}
+                    </div>
+                  );
+                })}
+                {/* Show extra fields not in columns */}
+                {config.extraFields?.filter(f => !config.columns.find(c => c.key === f.key) && f.type !== "photo" && f.type !== "readonly_date").map((field) => {
+                  const value = (viewRecord as any)[field.key];
+                  if (!value) return null;
+                  return (
+                    <div key={field.key} className="space-y-1">
+                      <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">{field.label}</p>
+                      <p className="text-sm text-foreground">{value}</p>
+                    </div>
+                  );
+                })}
+                <div className="space-y-1">
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Observações</p>
+                  <p className="text-sm text-foreground">{viewRecord.observacoes || "-"}</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Criado em</p>
+                  <p className="text-sm text-foreground">
+                    {viewRecord.created_at ? new Date(viewRecord.created_at).toLocaleString("pt-BR") : "-"}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </motion.div>
   );
 }
