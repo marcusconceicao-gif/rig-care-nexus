@@ -507,6 +507,7 @@ export default function ModulePage({ config }: ModulePageProps) {
             </div>
           </DialogContent>
         </Dialog>
+        </div>
       </div>
 
       {/* Search */}
