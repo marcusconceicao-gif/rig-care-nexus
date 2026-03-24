@@ -227,7 +227,36 @@ export default function ModulePage({ config }: ModulePageProps) {
     }
   };
 
-  return (
+  const handleExportPDF = () => {
+    const doc = new jsPDF({ orientation: "landscape" });
+    const title = `Relatório - ${config.title}`;
+    const date = new Date().toLocaleDateString("pt-BR");
+
+    doc.setFontSize(16);
+    doc.text(title, 14, 15);
+    doc.setFontSize(10);
+    doc.text(`Gerado em: ${date}`, 14, 22);
+    doc.text(`Total de registros: ${filtered.length}`, 14, 28);
+
+    const headers = config.columns.filter(c => c.key !== "foto_url").map(c => c.label);
+    const body = filtered.map(record =>
+      config.columns.filter(c => c.key !== "foto_url").map(col => (record as any)[col.key] || "-")
+    );
+
+    autoTable(doc, {
+      head: [headers],
+      body,
+      startY: 34,
+      styles: { fontSize: 8, cellPadding: 3 },
+      headStyles: { fillColor: [41, 65, 148], textColor: 255, fontStyle: "bold" },
+      alternateRowStyles: { fillColor: [240, 240, 240] },
+    });
+
+    doc.save(`${config.module}-relatorio-${date.replace(/\//g, "-")}.pdf`);
+    toast({ title: "Relatório PDF gerado com sucesso!" });
+  };
+
+
     <motion.div
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
