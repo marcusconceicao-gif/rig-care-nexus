@@ -52,7 +52,7 @@ const menuGroups = [
       
       { path: "/tacografo", label: "Tacógrafo", icon: Clock },
       { path: "/seguro", label: "Seguro", icon: Shield },
-      { path: "/inicio-fim-operacao", label: "Início/Fim Op.", icon: PlayCircle },
+      
       { path: "/pico-velocidade", label: "Pico Velocidade", icon: Zap },
     ],
   },
