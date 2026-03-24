@@ -38,6 +38,7 @@ export default function ModulePage({ config }: ModulePageProps) {
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
   const [dynamicOptions, setDynamicOptions] = useState<Record<string, string[]>>({});
   const [viewRecord, setViewRecord] = useState<ModuleRecord | null>(null);
+  const { toast } = useToast();
   const [form, setForm] = useState<Record<string, any>>({
     placa: "",
     nome: "",
