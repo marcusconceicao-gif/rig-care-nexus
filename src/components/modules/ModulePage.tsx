@@ -256,6 +256,64 @@ export default function ModulePage({ config }: ModulePageProps) {
     doc.save(`${config.module}-relatorio-${date.replace(/\//g, "-")}.pdf`);
     toast({ title: "Relatório PDF gerado com sucesso!" });
   };
+  const handleImportExcel = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    e.target.value = "";
+
+    const reader = new FileReader();
+    reader.onload = async (evt) => {
+      try {
+        const data = evt.target?.result;
+        const workbook = XLSX.read(data, { type: "binary" });
+        const sheetName = workbook.SheetNames[0];
+        const sheet = workbook.Sheets[sheetName];
+        const rows: Record<string, any>[] = XLSX.utils.sheet_to_json(sheet, { defval: "" });
+
+        if (rows.length === 0) {
+          toast({ title: "Planilha vazia", description: "Nenhum dado encontrado na planilha.", variant: "destructive" });
+          return;
+        }
+
+        const columnMap: Record<string, string> = {};
+        for (const col of config.columns) {
+          columnMap[col.label.toLowerCase()] = col.key;
+        }
+        columnMap["responsável"] = "responsavel";
+        columnMap["responsavel"] = "responsavel";
+        columnMap["observações"] = "observacoes";
+        columnMap["observacoes"] = "observacoes";
+        columnMap["data"] = "data";
+
+        let imported = 0;
+        for (const row of rows) {
+          const record: Record<string, any> = {
+            module: config.module,
+            data: new Date().toLocaleDateString("pt-BR"),
+            responsavel: "Importação Excel",
+          };
+
+          for (const [excelKey, value] of Object.entries(row)) {
+            const mappedKey = columnMap[excelKey.toLowerCase()] || excelKey.toLowerCase().replace(/\s+/g, "_");
+            if (["module", "id", "created_at", "updated_at"].includes(mappedKey)) continue;
+            record[mappedKey] = String(value);
+          }
+
+          if (!record.responsavel) record.responsavel = "Importação Excel";
+          if (!record.data) record.data = new Date().toLocaleDateString("pt-BR");
+
+          const { error } = await supabase.from("module_records").insert([record] as any);
+          if (!error) imported++;
+        }
+
+        toast({ title: `${imported} registro(s) importado(s) com sucesso!` });
+        fetchRecords();
+      } catch (err) {
+        toast({ title: "Erro ao importar", description: "Verifique o formato da planilha.", variant: "destructive" });
+      }
+    };
+    reader.readAsBinaryString(file);
+  };
 
   return (
     <motion.div
@@ -272,10 +330,22 @@ export default function ModulePage({ config }: ModulePageProps) {
             {records.length} registro{records.length !== 1 ? "s" : ""}
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-wrap">
           <Button variant="outline" className="gap-2" onClick={handleExportPDF} disabled={filtered.length === 0}>
             <FileDown className="w-4 h-4" />
             Relatório PDF
+          </Button>
+          <Button variant="outline" className="gap-2" asChild>
+            <label className="cursor-pointer">
+              <FileUp className="w-4 h-4" />
+              Importar Excel
+              <input
+                type="file"
+                accept=".xlsx,.xls,.csv"
+                className="hidden"
+                onChange={handleImportExcel}
+              />
+            </label>
           </Button>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
