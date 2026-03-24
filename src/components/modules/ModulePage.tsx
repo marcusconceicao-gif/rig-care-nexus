@@ -256,7 +256,7 @@ export default function ModulePage({ config }: ModulePageProps) {
     toast({ title: "Relatório PDF gerado com sucesso!" });
   };
 
-
+  return (
     <motion.div
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
