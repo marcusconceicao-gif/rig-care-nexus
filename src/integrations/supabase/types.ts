@@ -32,11 +32,14 @@ export type Database = {
           mes_ano: string | null
           module: string
           nome: string | null
+          nome_patrao: string | null
           numero_occ: string | null
           observacoes: string | null
           placa: string | null
           responsavel: string
           status: string | null
+          telefone: string | null
+          telefone_patrao: string | null
           tipo_rastreador: string | null
           updated_at: string
         }
@@ -57,11 +60,14 @@ export type Database = {
           mes_ano?: string | null
           module: string
           nome?: string | null
+          nome_patrao?: string | null
           numero_occ?: string | null
           observacoes?: string | null
           placa?: string | null
           responsavel: string
           status?: string | null
+          telefone?: string | null
+          telefone_patrao?: string | null
           tipo_rastreador?: string | null
           updated_at?: string
         }
@@ -82,11 +88,14 @@ export type Database = {
           mes_ano?: string | null
           module?: string
           nome?: string | null
+          nome_patrao?: string | null
           numero_occ?: string | null
           observacoes?: string | null
           placa?: string | null
           responsavel?: string
           status?: string | null
+          telefone?: string | null
+          telefone_patrao?: string | null
           tipo_rastreador?: string | null
           updated_at?: string
         }
