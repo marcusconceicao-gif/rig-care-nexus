@@ -12,11 +12,12 @@ export default function MotoristasPage() {
           { key: "foto_url", label: "Foto" },
           { key: "nome", label: "Nome" },
           { key: "cpf", label: "CPF" },
+          { key: "telefone", label: "Telefone" },
           { key: "placa", label: "Placa" },
+          { key: "nome_patrao", label: "Patrão" },
           { key: "responsavel", label: "Responsável" },
           { key: "data", label: "Data Cadastro" },
           { key: "status", label: "Status" },
-          { key: "observacoes", label: "Observações" },
         ],
         extraFields: [
           {
@@ -32,6 +33,12 @@ export default function MotoristasPage() {
             placeholder: "000.000.000-00",
           },
           {
+            key: "telefone",
+            label: "Telefone",
+            type: "text",
+            placeholder: "(00) 00000-0000",
+          },
+          {
             key: "foto_url",
             label: "Foto do Motorista",
             type: "photo",
@@ -41,6 +48,18 @@ export default function MotoristasPage() {
             label: "Placa do Veículo",
             type: "text",
             placeholder: "ABC-1234",
+          },
+          {
+            key: "nome_patrao",
+            label: "Nome do Patrão",
+            type: "text",
+            placeholder: "Nome do patrão/proprietário",
+          },
+          {
+            key: "telefone_patrao",
+            label: "Telefone do Patrão",
+            type: "text",
+            placeholder: "(00) 00000-0000",
           },
           {
             key: "status",
