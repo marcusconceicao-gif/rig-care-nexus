@@ -40,12 +40,14 @@ export type Database = {
           segunda_tec_senha: string | null
           segunda_tec_usuario: string | null
           segunda_tecnologia: string | null
+          senha_rastreador: string | null
           status: string | null
           telefone: string | null
           telefone_patrao: string | null
           tipo_rastreador: string | null
           trava_quinta_roda: string | null
           updated_at: string
+          usuario_rastreador: string | null
         }
         Insert: {
           arquivo_url?: string | null
@@ -72,12 +74,14 @@ export type Database = {
           segunda_tec_senha?: string | null
           segunda_tec_usuario?: string | null
           segunda_tecnologia?: string | null
+          senha_rastreador?: string | null
           status?: string | null
           telefone?: string | null
           telefone_patrao?: string | null
           tipo_rastreador?: string | null
           trava_quinta_roda?: string | null
           updated_at?: string
+          usuario_rastreador?: string | null
         }
         Update: {
           arquivo_url?: string | null
@@ -104,12 +108,14 @@ export type Database = {
           segunda_tec_senha?: string | null
           segunda_tec_usuario?: string | null
           segunda_tecnologia?: string | null
+          senha_rastreador?: string | null
           status?: string | null
           telefone?: string | null
           telefone_patrao?: string | null
           tipo_rastreador?: string | null
           trava_quinta_roda?: string | null
           updated_at?: string
+          usuario_rastreador?: string | null
         }
         Relationships: []
       }
