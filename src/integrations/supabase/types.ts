@@ -37,10 +37,14 @@ export type Database = {
           observacoes: string | null
           placa: string | null
           responsavel: string
+          segunda_tec_senha: string | null
+          segunda_tec_usuario: string | null
+          segunda_tecnologia: string | null
           status: string | null
           telefone: string | null
           telefone_patrao: string | null
           tipo_rastreador: string | null
+          trava_quinta_roda: string | null
           updated_at: string
         }
         Insert: {
@@ -65,10 +69,14 @@ export type Database = {
           observacoes?: string | null
           placa?: string | null
           responsavel: string
+          segunda_tec_senha?: string | null
+          segunda_tec_usuario?: string | null
+          segunda_tecnologia?: string | null
           status?: string | null
           telefone?: string | null
           telefone_patrao?: string | null
           tipo_rastreador?: string | null
+          trava_quinta_roda?: string | null
           updated_at?: string
         }
         Update: {
@@ -93,10 +101,14 @@ export type Database = {
           observacoes?: string | null
           placa?: string | null
           responsavel?: string
+          segunda_tec_senha?: string | null
+          segunda_tec_usuario?: string | null
+          segunda_tecnologia?: string | null
           status?: string | null
           telefone?: string | null
           telefone_patrao?: string | null
           tipo_rastreador?: string | null
+          trava_quinta_roda?: string | null
           updated_at?: string
         }
         Relationships: []
