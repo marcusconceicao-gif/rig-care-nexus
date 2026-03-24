@@ -514,7 +514,7 @@ export default function ModulePage({ config }: ModulePageProps) {
                   )}
                 </div>
               ))}
-              {config.searchField === "nome" && (
+              {config.searchField === "nome" && !config.extraFields?.some(f => f.key === "nome") && (
                 <div className="space-y-2">
                   <Label>Nome</Label>
                   <Input
