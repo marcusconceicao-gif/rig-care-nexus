@@ -22,7 +22,7 @@ import AutotracManutencaoPage from "@/pages/modules/AutotracManutencaoPage";
 import TacografoPage from "@/pages/modules/TacografoPage";
 import SeguroPage from "@/pages/modules/SeguroPage";
 import QuebrasAcidentesPage from "@/pages/modules/QuebrasAcidentesPage";
-import InicioFimOperacaoPage from "@/pages/modules/InicioFimOperacaoPage";
+
 import PicoVelocidadePage from "@/pages/modules/PicoVelocidadePage";
 import ManutencaoCarretasPage from "@/pages/modules/ManutencaoCarretasPage";
 import LavagemCarretasPage from "@/pages/modules/LavagemCarretasPage";
