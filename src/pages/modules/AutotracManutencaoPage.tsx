@@ -14,6 +14,7 @@ export default function AutotracManutencaoPage() {
           { key: "item_trocado", label: "Item Trocado" },
           { key: "empresa_responsavel", label: "Empresa Responsável" },
           { key: "trava_quinta_roda", label: "Trava 5ª Roda" },
+          { key: "usuario_rastreador", label: "Usuário Rastreador" },
           { key: "segunda_tecnologia", label: "2ª Tecnologia" },
           { key: "data", label: "Data Execução" },
           { key: "responsavel", label: "Responsável" },
@@ -49,6 +50,18 @@ export default function AutotracManutencaoPage() {
             label: "Trava de Quinta Roda",
             type: "text",
             placeholder: "Informações da trava de quinta roda",
+          },
+          {
+            key: "usuario_rastreador",
+            label: "Usuário do Rastreador",
+            type: "text",
+            placeholder: "Usuário de acesso ao rastreador",
+          },
+          {
+            key: "senha_rastreador",
+            label: "Senha do Rastreador",
+            type: "text",
+            placeholder: "Senha de acesso ao rastreador",
           },
           {
             key: "segunda_tecnologia",

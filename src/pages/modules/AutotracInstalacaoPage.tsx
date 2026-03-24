@@ -14,6 +14,7 @@ export default function AutotracInstalacaoPage() {
           { key: "numero_occ", label: "Nº OCC" },
           { key: "empresa_responsavel", label: "Empresa Responsável" },
           { key: "trava_quinta_roda", label: "Trava 5ª Roda" },
+          { key: "usuario_rastreador", label: "Usuário Rastreador" },
           { key: "segunda_tecnologia", label: "2ª Tecnologia" },
           { key: "responsavel", label: "Responsável" },
           { key: "data", label: "Data Instalação" },
@@ -49,6 +50,18 @@ export default function AutotracInstalacaoPage() {
             label: "Trava de Quinta Roda",
             type: "text",
             placeholder: "Informações da trava de quinta roda",
+          },
+          {
+            key: "usuario_rastreador",
+            label: "Usuário do Rastreador",
+            type: "text",
+            placeholder: "Usuário de acesso ao rastreador",
+          },
+          {
+            key: "senha_rastreador",
+            label: "Senha do Rastreador",
+            type: "text",
+            placeholder: "Senha de acesso ao rastreador",
           },
           {
             key: "segunda_tecnologia",

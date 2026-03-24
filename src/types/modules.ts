@@ -23,6 +23,8 @@ export interface ModuleRecord {
   segunda_tecnologia?: string;
   segunda_tec_usuario?: string;
   segunda_tec_senha?: string;
+  usuario_rastreador?: string;
+  senha_rastreador?: string;
   created_at?: string;
   updated_at?: string;
 }
