@@ -359,7 +359,7 @@ export default function ModulePage({ config }: ModulePageProps) {
             <DialogHeader>
               <DialogTitle>Novo Registro - {config.title}</DialogTitle>
             </DialogHeader>
-            <ScrollArea className="flex-1 max-h-[65vh] pr-4">
+            <ScrollArea className="h-[60vh] pr-4">
             <div className="space-y-4 pt-2">
               {config.searchField === "placa" && (
                 <div className="space-y-2">
