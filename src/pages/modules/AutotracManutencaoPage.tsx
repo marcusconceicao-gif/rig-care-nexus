@@ -51,6 +51,18 @@ export default function AutotracManutencaoPage() {
             placeholder: "Informações da trava de quinta roda",
           },
           {
+            key: "usuario_rastreador",
+            label: "Usuário do Rastreador",
+            type: "text",
+            placeholder: "Usuário de acesso ao rastreador",
+          },
+          {
+            key: "senha_rastreador",
+            label: "Senha do Rastreador",
+            type: "text",
+            placeholder: "Senha de acesso ao rastreador",
+          },
+          {
             key: "segunda_tecnologia",
             label: "Segunda Tecnologia",
             type: "select",
@@ -60,6 +72,14 @@ export default function AutotracManutencaoPage() {
             key: "segunda_tec_usuario",
             label: "Usuário (2ª Tecnologia)",
             type: "text",
+            placeholder: "Usuário de acesso",
+          },
+          {
+            key: "segunda_tec_senha",
+            label: "Senha (2ª Tecnologia)",
+            type: "text",
+            placeholder: "Senha de acesso",
+          },
             placeholder: "Usuário de acesso",
           },
           {
