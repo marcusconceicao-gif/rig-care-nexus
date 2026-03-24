@@ -578,6 +578,7 @@ export default function ModulePage({ config }: ModulePageProps) {
                 Salvar Registro
               </Button>
             </div>
+            </ScrollArea>
           </DialogContent>
         </Dialog>
         </div>
