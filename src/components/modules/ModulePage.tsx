@@ -1,6 +1,8 @@
 import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Search, Plus, Upload, Mail, AlertCircle, Trash2, Loader2, CalendarIcon, ExternalLink, AlertTriangle, Camera, Eye } from "lucide-react";
+import { Search, Plus, Upload, Mail, AlertCircle, Trash2, Loader2, CalendarIcon, ExternalLink, AlertTriangle, Camera, Eye, FileDown } from "lucide-react";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 import { format, parse, differenceInDays, isValid } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
