@@ -1,6 +1,8 @@
 import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Search, Plus, Upload, Mail, AlertCircle, Trash2, Loader2, CalendarIcon, ExternalLink, AlertTriangle, Camera, Eye } from "lucide-react";
+import { Search, Plus, Upload, Mail, AlertCircle, Trash2, Loader2, CalendarIcon, ExternalLink, AlertTriangle, Camera, Eye, FileDown } from "lucide-react";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 import { format, parse, differenceInDays, isValid } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
@@ -225,6 +227,35 @@ export default function ModulePage({ config }: ModulePageProps) {
     }
   };
 
+  const handleExportPDF = () => {
+    const doc = new jsPDF({ orientation: "landscape" });
+    const title = `Relatório - ${config.title}`;
+    const date = new Date().toLocaleDateString("pt-BR");
+
+    doc.setFontSize(16);
+    doc.text(title, 14, 15);
+    doc.setFontSize(10);
+    doc.text(`Gerado em: ${date}`, 14, 22);
+    doc.text(`Total de registros: ${filtered.length}`, 14, 28);
+
+    const headers = config.columns.filter(c => c.key !== "foto_url").map(c => c.label);
+    const body = filtered.map(record =>
+      config.columns.filter(c => c.key !== "foto_url").map(col => (record as any)[col.key] || "-")
+    );
+
+    autoTable(doc, {
+      head: [headers],
+      body,
+      startY: 34,
+      styles: { fontSize: 8, cellPadding: 3 },
+      headStyles: { fillColor: [41, 65, 148], textColor: 255, fontStyle: "bold" },
+      alternateRowStyles: { fillColor: [240, 240, 240] },
+    });
+
+    doc.save(`${config.module}-relatorio-${date.replace(/\//g, "-")}.pdf`);
+    toast({ title: "Relatório PDF gerado com sucesso!" });
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 8 }}
@@ -240,8 +271,12 @@ export default function ModulePage({ config }: ModulePageProps) {
             {records.length} registro{records.length !== 1 ? "s" : ""}
           </p>
         </div>
-
-        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <div className="flex gap-2">
+          <Button variant="outline" className="gap-2" onClick={handleExportPDF} disabled={filtered.length === 0}>
+            <FileDown className="w-4 h-4" />
+            Relatório PDF
+          </Button>
+          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
             <Button className="gap-2">
               <Plus className="w-4 h-4" />
@@ -472,6 +507,7 @@ export default function ModulePage({ config }: ModulePageProps) {
             </div>
           </DialogContent>
         </Dialog>
+        </div>
       </div>
 
       {/* Search */}
