@@ -9,10 +9,10 @@ export default function ConjuntosPage() {
         searchField: "placa",
         searchPlaceholder: "Buscar por placa do cavalo...",
         columns: [
-          { key: "placa", label: "Placa Cavalo" },
           { key: "nome", label: "Motorista" },
+          { key: "placa", label: "Placa Cavalo" },
           { key: "numero_occ", label: "Placa Carreta" },
-          { key: "responsavel", label: "Responsável" },
+          { key: "responsavel", label: "Empresa" },
           { key: "data", label: "Data" },
           { key: "status", label: "Status" },
           { key: "observacoes", label: "Observações" },
