@@ -48,8 +48,8 @@ export default function AutotracInstalacaoPage() {
           {
             key: "trava_quinta_roda",
             label: "Trava de Quinta Roda",
-            type: "text",
-            placeholder: "Informações da trava de quinta roda",
+            type: "select",
+            options: ["SIM", "NÃO"],
           },
           {
             key: "usuario_rastreador",
