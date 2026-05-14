@@ -68,6 +68,18 @@ export default function AutotracInstalacaoPage() {
             type: "text",
             placeholder: "Senha de acesso",
           },
+          {
+            key: "usuario_rastreador",
+            label: "Usuário do Rastreador",
+            type: "text",
+            placeholder: "Usuário de acesso ao rastreador",
+          },
+          {
+            key: "senha_rastreador",
+            label: "Senha do Rastreador",
+            type: "text",
+            placeholder: "Senha de acesso ao rastreador",
+          },
         ],
       }}
     />
